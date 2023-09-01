@@ -31,8 +31,8 @@ Antes de começar, você precisa ter instalado:
 
 ## Uso 🕹️
 
-- Ao abrir o aplicativo no navegador, você verá uma lista de Pokémon na lateral esquerda.
-- Clique em um Pokémon na lista para ver mais detalhes exibidos no cartão à direita.
+- Ao abrir o aplicativo no navegador, você verá uma lista de Pokémon na lateral direita.
+- Clique em um Pokémon na lista para ver mais detalhes exibidos no cartão à esquerda.
 - Para interagir com a aplicação, clique nos diferentes Pokémon da lista.
 
 ## Contribuição 🤝
