@@ -1,32 +1,44 @@
-Pokédex - HTML CSS JAVA
-Este é um exemplo de código para uma Pokédex simples, criada usando HTML, CSS e JavaScript. A Pokédex exibe informações e imagens de alguns Pokémon populares.
+# Pokédex Web App 🌟
 
-Pré-requisitos
-Antes de executar este código, verifique se você tem os seguintes requisitos:
+Uma Pokédex interativa construída com HTML, CSS e JavaScript. 🚀
 
-Um navegador da web moderno, como o Google Chrome, Mozilla Firefox ou Microsoft Edge.
-Conexão com a internet para carregar as fontes e imagens usadas.
-Instruções de uso
-Siga estas etapas para executar a Pokédex:
+## Tabela de Conteúdo 📚
 
-Faça o download de todos os arquivos deste repositório.
-Abra o arquivo index.html em seu navegador da web.
-A Pokédex será exibida, mostrando os cartões de Pokémon e a lista de seleção.
-Clique em um Pokémon na lista para exibir informações detalhadas sobre ele.
-Explore os diferentes Pokémon disponíveis e suas respectivas informações.
-Estrutura do projeto
-O projeto possui a seguinte estrutura de diretórios e arquivos:
+- [Sobre](#sobre)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação](#instalação)
+- [Uso](#uso)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
 
-src/css/: Este diretório contém os arquivos CSS para estilização da Pokédex.
-src/imagens/: Aqui estão armazenadas as imagens dos Pokémon.
-src/js/: O diretório que contém o arquivo JavaScript responsável pela interatividade da Pokédex.
-src/fonts/: Diretório opcional, caso você queira adicionar suas próprias fontes.
-Contribuição
-Este projeto é apenas um exemplo e não está aberto a contribuições.
+## Sobre ℹ️
 
-Licença
-Este código é distribuído sob a licença MIT.
+Este projeto é uma aplicação web de uma Pokédex que permite aos usuários visualizar informações sobre vários Pokémon,
+como nomes, tipos, estatísticas e habilidades. A aplicação é construída utilizando HTML para estrutura, CSS para estilos
+e JavaScript para funcionalidades interativas.
 
-Agradecimentos
-Os dados e imagens dos Pokémon foram obtidos através da PokéAPI.
-As fontes utilizadas neste projeto são da família Poppins, fornecidas pelo Google Fonts.
+## Pré-requisitos 🛠️
+
+Antes de começar, você precisa ter instalado:
+
+- Um navegador web moderno (como Google Chrome, Mozilla Firefox, etc.).
+
+## Instalação 🚀
+
+1. Faça um clone deste repositório: `git clone https://github.com/seu-usuario/pokedex-app.git`
+2. Navegue até o diretório do projeto: `cd pokedex-app`
+3. Abra o arquivo `index.html` no seu navegador.
+
+## Uso 🕹️
+
+- Ao abrir o aplicativo no navegador, você verá uma lista de Pokémon na lateral esquerda.
+- Clique em um Pokémon na lista para ver mais detalhes exibidos no cartão à direita.
+- Para interagir com a aplicação, clique nos diferentes Pokémon da lista.
+
+## Contribuição 🤝
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+## Licença 📜
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
