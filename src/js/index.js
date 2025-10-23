@@ -1,47 +1,142 @@
-/*
-quando clicar no pokémon da listagem temos que esconder o cartão do pokémon aberto e mostrar o cartão correspondente ao que foi selecionado na listagem
+// Aguarda o documento HTML ser totalmente carregado
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- 1. SELETORES DOS ELEMENTOS ---
+    // Pegamos todos os elementos que vamos precisar manipular
+    
+    // A Lista da Direita
+    const listaSelecaoPokemon = document.querySelectorAll('.listagem .pokemon');
+    const buscaFormEl = document.getElementById('busca-form');
+    const buscaInputEl = document.getElementById('busca-input');
+    
+    // O Card Principal da Esquerda (que vamos preencher)
+    const cardPokemon = document.getElementById('pokemon-card-display');
+    const pokemonNomeEl = document.getElementById('pokemon-nome');
+    const pokemonIdEl = document.getElementById('pokemon-id');
+    const pokemonImagemEl = document.getElementById('pokemon-imagem');
+    const pokemonTipoEl = document.getElementById('pokemon-tipo');
+    
+    // Status
+    const hpValorEl = document.getElementById('hp-valor');
+    const ataqueValorEl = document.getElementById('ataque-valor');
+    const defesaValorEl = document.getElementById('defesa-valor');
+    const velocidadeValorEl = document.getElementById('velocidade-valor');
+    
+    // Habilidades
+    const habilidade1El = document.getElementById('habilidade-1');
+    const habilidade2El = document.getElementById('habilidade-2');
 
-pra isso vamos precisar trabalhar com dois elementos
-1 - listagem
-2 - cartão do pokémon
+    // --- 2. CONFIGURANDO OS CLIQUES NA LISTA ---
+    
+    listaSelecaoPokemon.forEach(itemPokemon => {
+        itemPokemon.addEventListener('click', () => {
+            // Pega o ID do item clicado (ex: "pikachu", "charmander")
+            // O 'id' do <li> é o nome do pokemon!
+            const nomePokemon = itemPokemon.id;
+            
+            // Chama nossa função principal para buscar dados da API
+            fetchPokemon(nomePokemon);
+            
+            // Atualiza a classe 'ativo' na lista da direita
+            // Remove de quem estava ativo
+            const pokemonAtivoNaLista = document.querySelector('.listagem .ativo');
+            pokemonAtivoNaLista.classList.remove('ativo');
+            
+            // Adiciona no item que foi clicado
+            itemPokemon.classList.add('ativo');
+        });
+    });
+    // --- NOVO: 2.5. CONFIGURANDO A BARRA DE BUSCA ---
+buscaFormEl.addEventListener('submit', (evento) => {
+    
+    // Impede que o formulário recarregue a página
+    evento.preventDefault(); 
+    
+    // Pega o valor, remove espaços e converte para minúsculas
+    const termoBusca = buscaInputEl.value.trim().toLowerCase();
+    
+    // Se o campo não estiver vazio, busca o Pokémon
+    if (termoBusca) {
+        
+        // Reutiliza nossa função principal da API!
+        fetchPokemon(termoBusca);
+        
+        // (Opcional, mas recomendado)
+        // Remove a seleção 'ativo' da lista da direita,
+        // pois o Pokémon atual veio da busca, não da lista.
+        const pokemonAtivoNaLista = document.querySelector('.listagem .ativo');
+        if (pokemonAtivoNaLista) {
+            pokemonAtivoNaLista.classList.remove('ativo');
+        }
+    }
+});
 
-precisamos criar duas variáveis no JS pra trabalhar com os elementos da tela
+    // --- 3. FUNÇÃO PRINCIPAL DE BUSCA NA API ---
+    
+    async function fetchPokemon(pokemonName) {
+        // Mostra um "carregando" enquanto busca
+        pokemonNomeEl.textContent = 'Carregando...';
 
-vamos precisar trabalhar com um evento de clique feito pelo usuário na listagem de pokémons
+        const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`;
+        
+        try {
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                pokemonNomeEl.textContent = 'Não encontrado';
+                return;
+            }
+            
+            const data = await response.json();
+            
+            // Envia os dados da API para a função que atualiza o HTML
+            renderPokemonCard(data);
+            
+        } catch (error) {
+            console.error("Erro ao buscar Pokémon:", error);
+            pokemonNomeEl.textContent = 'Erro!';
+        }
+    }
 
-- remover a classe aberto só do cartão que está aberto
-- ao clicar em um pokémon da listagem pegamos o id desse pokémon pra saber qual cartão mostrar
--remover a classe ativo que marca o pokémon selecionado
--adicionar a classe ativo no item da lista selecionado 
-*/
-
-
-// precisamos criar duas variáveis no JS pra trabalhar com os elementos da tela
-const listaSelecaoPokemons = document.querySelectorAll('.pokemon')
-const pokemonsCard = document.querySelectorAll('.cartao-pokemon')
-
-listaSelecaoPokemons.forEach(pokemon => {
-    //vamos precisar trabalhar com um evento de clique feito pelo usuário na listagem de pokémons
-
-    pokemon.addEventListener('click', () => {
-        //remover a classe aberto só do cartão que está aberto
-        const cartaoPokemonAberto = document.querySelector('.aberto')        
-        cartaoPokemonAberto.classList.remove('aberto')
-
-        //ao clicar em um pokémon da listagem pegamos o id desse pokémon pra saber qual cartão mostrar
-        const idPokemonSelecionado = pokemon.attributes.id.value
-
-        const idDoCartaoPokemonParaAbrir = 'cartao-' + idPokemonSelecionado
-        const cartaoPokemonParaAbrir = document.getElementById(idDoCartaoPokemonParaAbrir)
-        cartaoPokemonParaAbrir.classList.add('aberto')
-
-        //remover a classe ativo que marca o pokémon selecionado
-        const pokemonAtivoNaListagem = document.querySelector('.ativo')
-        pokemonAtivoNaListagem.classList.remove('ativo')
-
-        //adicionar a classe ativo no item da lista selecionado 
-        const pokemonSelecionadoNaListagem = document.getElementById(idPokemonSelecionado)
-        pokemonSelecionadoNaListagem.classList.add('ativo')
-
-    })
-})
+    // --- 4. FUNÇÃO PARA ATUALIZAR O HTML (RENDERIZAR) ---
+    
+    function renderPokemonCard(data) {
+        
+        // --- Informações do Topo ---
+        pokemonNomeEl.textContent = data.name;
+        pokemonIdEl.textContent = `#${data.id.toString().padStart(3, '0')}`;
+        pokemonImagemEl.src = data.sprites.other['official-artwork'].front_default;
+        
+        // Tipo e Cor do Card
+        const tipoPrincipal = data.types[0].type.name;
+        pokemonTipoEl.textContent = tipoPrincipal;
+        
+        // Atualiza a classe do card para mudar a cor de fundo
+        // (Ex: 'tipo-fire', 'tipo-water', etc.)
+        // Isso depende de você ter essas classes no seu CSS
+        cardPokemon.className = `cartao-pokemon tipo-${tipoPrincipal} aberto`;
+        
+        
+        // --- Status ---
+        // Função auxiliar para pegar o valor do stat
+        const getStat = (statName) => {
+            const stat = data.stats.find(s => s.stat.name === statName);
+            return stat ? stat.base_stat : '0';
+        };
+        
+        hpValorEl.textContent = getStat('hp');
+        ataqueValorEl.textContent = getStat('attack');
+        defesaValorEl.textContent = getStat('defense');
+        velocidadeValorEl.textContent = getStat('speed'); // Na API é 'speed'
+        
+        // --- Habilidades ---
+        const habilidades = data.abilities.map(a => a.ability.name);
+        
+        habilidade1El.textContent = habilidades[0] || '---';
+        habilidade2El.textContent = habilidades[1] || '---';
+    }
+    
+    // --- 5. CARGA INICIAL ---
+    // Para a página não começar vazia, vamos buscar o Pikachu
+    fetchPokemon('pikachu');
+});
