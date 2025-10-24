@@ -1,3 +1,4 @@
+/* --- Estilos Responsivos --- */
 @media (max-width: 750px) {
     body {
         font-size: 12px;
@@ -54,5 +55,4 @@
     .listagem .pokemon span {
         padding-right: 5px;
     }
-
 }

@@ -1,20 +1,28 @@
+/* --- Estilos da Listagem --- */
 .listagem {
     max-width: 200px;
+    /* Mantemos a largura original */
 }
 
+/* --- CÓDIGO ATUALIZADO (SOLUÇÃO 2) --- */
 .listagem .pokemon {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* Centraliza o texto verticalmente */
+    justify-content: center;
+    /* Centraliza o texto horizontalmente */
     margin-bottom: 10px;
     background-color: #6B727A;
     color: #FFFFFF;
-    padding: 0 5px;
+    padding: 15px 10px;
+    /* Um padding bom para texto */
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 10px;
     min-height: 70px;
+    /* Uma altura menor e consistente */
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     transition: 0.15s ease-in-out;
+    text-align: center;
 }
 
 .listagem .pokemon:hover {
@@ -22,15 +30,53 @@
 }
 
 .listagem .pokemon img {
-    width: 25%;
-    border-radius: 50%;
 }
 
 .listagem .pokemon span {
-    padding-right: 20px;
+    padding-right: 0;
+    font-size: 16px;
+    text-transform: capitalize;
+    width: 100%;
+    /* Garante que o span preencha o botão */
 }
+
+/* --- FIM DA ATUALIZAÇÃO --- */
+
 
 .listagem .pokemon.ativo {
     background-color: #FA6668;
 }
 
+/* --- Estilos para a Barra de Busca (Permanece Igual) --- */
+.listagem .busca-form {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.listagem .busca-input {
+    flex-grow: 1;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.listagem .busca-botao {
+    padding: 8px 12px;
+    border: 1px solid #A040A0;
+    background-color: #A040A0;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.listagem .busca-botao:hover {
+    background-color: #BA68C8;
+    border-color: #BA68C8;
+}

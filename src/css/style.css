@@ -1,0 +1,9 @@
+/* Este arquivo agora é apenas um "índice"
+  que importa os outros arquivos de estilo.
+  O Webpack vai ler isso e juntar tudo.
+*/
+
+@import url('./global.css');
+@import url('./card.css');
+@import url('./listagem.css');
+@import url('./responsivo.css');
