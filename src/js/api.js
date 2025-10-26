@@ -24,19 +24,34 @@ export async function fetchPokemon(pokemonName) {
 
 
 // Função auxiliar (interna) para analisar a cadeia de evolução aninhada
-function parseEvolutionChain(chain) { // <-- Chave de abertura
+function parseEvolutionChain(chain) {
     const evolutions = [];
     let current = chain;
 
+    // Função interna para extrair o ID da URL (ex: .../pokemon-species/1/)
+    const getIdFromUrl = (url) => {
+        const parts = url.split('/');
+        return parseInt(parts[parts.length - 2]); // Pega o penúltimo segmento
+    };
+
     // Loop que "anda" pela cadeia aninhada
     do {
-        evolutions.push(current.species.name);
+        const speciesName = current.species.name;
+        const speciesId = getIdFromUrl(current.species.url);
+
+        // Adiciona um OBJETO com nome e ID à lista
+        evolutions.push({ 
+            name: speciesName, 
+            id: speciesId 
+        });
+
         // Pega a *primeira* evolução (a API pode ter ramificações)
         current = current.evolves_to[0]; 
-    } while (!!current && current.hasOwnProperty('evolves_to')); // <-- Fim do loop
+    } while (!!current && current.hasOwnProperty('evolves_to'));
 
-    return evolutions; // <-- Return DENTRO da função
-} // <-- Chave de fechamento
+    // Retorna ex: [{name: 'bulbasaur', id: 1}, {name: 'ivysaur', id: 2}, ...]
+    return evolutions; 
+}
 
 
 // Função para buscar dados da Espécie (descrição, etc.) E a Cadeia de Evolução

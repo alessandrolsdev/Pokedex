@@ -178,7 +178,7 @@ export function renderPokemonList(pokemonList) {
 }
 
 export function renderEvolutionChain(evolutionArray) {
-    if (!listaEvolucoesEl) return; // Verifica se o elemento existe
+    if (!listaEvolucoesEl) return;
 
     listaEvolucoesEl.innerHTML = '';
     let message = '';
@@ -196,9 +196,16 @@ export function renderEvolutionChain(evolutionArray) {
         li.classList.add('no-evolution'); 
         listaEvolucoesEl.appendChild(li);
     } else {
-        evolutionArray.forEach(name => {
+        // --- MUDANÇA AQUI ---
+        // Agora iteramos sobre o array de OBJETOS
+        evolutionArray.forEach(pokemon => {
             const li = document.createElement('li');
-            li.textContent = name;
+            const formattedId = `#${pokemon.id.toString().padStart(3, '0')}`;
+            // Nova estrutura HTML: Nome em cima, ID em span abaixo
+            li.innerHTML = ` 
+                ${pokemon.name} 
+                <span class="evolution-id">${formattedId}</span>
+            `; 
             listaEvolucoesEl.appendChild(li);
         });
     }

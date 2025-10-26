@@ -1,58 +1,181 @@
 /* --- Estilos Responsivos --- */
 @media (max-width: 750px) {
+
+    /* --- Ajustes Globais --- */
     body {
-        font-size: 12px;
+        font-size: 14px;
+        /* Aumentar um pouco a base no mobile */
     }
 
+    /* --- Layout Principal (Empilhado) --- */
     .pokedex {
         flex-direction: column;
-        padding: 30px 0;
+        /* FORÇA O LAYOUT DE COLUNA */
+        padding: 20px;
+        /* Padding geral para telas menores */
+        max-width: 95%;
+        /* Limita a largura máxima no mobile */
+        gap: 20px;
+        /* Espaço entre os blocos */
+    }
+
+    /* --- Bloco da Descrição --- */
+    .descricao {
+        width: 100%;
+        /* Ocupa a largura total */
+        max-width: 400px;
+        /* Limita um pouco em telas um pouco maiores */
+        align-self: center;
+        /* Centraliza o bloco */
+        padding: 20px;
+    }
+
+    .descricao h3 {
+        font-size: 1.3rem;
+    }
+
+    .descricao p {
+        font-size: 0.9rem;
+    }
+
+
+    /* --- Bloco do Card Pokémon --- */
+    .cartoes-pokemon {
+        width: 100%;
+        /* Ocupa a largura total */
+        max-width: 400px;
+        /* Limita um pouco */
+        align-self: center;
+        /* Centraliza o bloco */
     }
 
     .cartao-pokemon {
-        max-width: 300px;
+        /* A altura se ajustará ao conteúdo */
     }
 
+    /* Ajustes no Topo do Card */
+    .cartao-pokemon .cartao-topo {
+        padding: 15px 20px 10px;
+        /* Padding menor */
+        min-height: auto;
+        /* Remove altura mínima no mobile */
+    }
+
+    .cartao-pokemon .nome {
+        font-size: 1.5rem;
+    }
+
+    .cartao-pokemon #pokemon-id {
+        font-size: 1.2rem;
+    }
+
+    .cartao-pokemon .pokemon-som {
+        width: 25px;
+        height: 25px;
+        font-size: 0.8rem;
+    }
+
+    .cartao-pokemon .lendario-status {
+        font-size: 9px;
+        padding: 1px 4px;
+    }
+
+    .cartao-pokemon .tipo {
+        font-size: 11px;
+        padding: 3px 8px;
+    }
+
+    .cartao-pokemon .regiao-info {
+        font-size: 11px;
+        padding: 2px 6px;
+    }
+
+    /* Ajustes na Imagem do Card */
     .cartao-pokemon .cartao-imagem {
-        width: 200px;
-        height: 200px;
+        min-height: 180px;
+        /* Altura mínima menor */
     }
 
+    .cartao-pokemon .cartao-imagem img.mostrando-sprite {
+        width: 96px;
+        height: 96px;
+        transform: scale(1.5);
+        /* Tamanho menor para sprite */
+    }
+
+    /* Ajustes na Base Branca do Card */
     .cartao-pokemon .cartao-informacoes {
-        padding: 60px 30px 30px;
-        margin-top: -50px;
+        padding: 15px;
+        /* Padding menor */
+        justify-content: space-around;
+        /* Mantém espaçamento */
     }
 
-    .cartao-pokemon .cartao-informacoes .informacoes {
-        display: flex;
-        justify-content: space-between;
-        padding: 0;
+    .cartao-pokemon .cartao-informacoes .status,
+    .cartao-pokemon .cartao-informacoes .evolucoes,
+    .cartao-pokemon .cartao-informacoes .habilidades {
+        width: 30%;
+        /* Usa porcentagem para caberem lado a lado */
+        min-width: 100px;
+        /* Largura mínima */
+        padding: 0 3px;
+        margin-bottom: 10px;
     }
 
     .cartao-pokemon .cartao-informacoes h3 {
-        font-size: 16px;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
     }
 
+    .cartao-pokemon .lista-status li,
+    .cartao-pokemon .lista-habilidades li,
+    .cartao-pokemon .lista-evolucoes li {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+        padding: 3px 0;
+    }
+
+    .cartao-pokemon .lista-evolucoes li:not(:last-child)::after {
+        margin-top: 3px;
+        font-size: 8px;
+    }
+
+
+    /* --- Bloco da Lista de Navegação --- */
     .listagem {
-        max-width: 300px;
+        width: 100%;
+        /* Ocupa a largura total */
+        max-width: 400px;
+        /* Limita um pouco */
+        align-self: center;
+        /* Centraliza o bloco */
     }
 
+    /* Ajuste para a lista ficar horizontal (opcional, mas comum) */
     .listagem ul {
         display: flex;
-        gap: 8px;
         flex-wrap: wrap;
-        justify-content: space-between;
+        /* Permite quebrar linha */
+        gap: 8px;
+        justify-content: center;
+        /* Centraliza os botões */
     }
 
     .listagem .pokemon {
-        width: 140px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        width: calc(50% - 4px);
+        /* Tenta colocar 2 por linha */
+        min-width: 120px;
+        /* Largura mínima */
+        min-height: 50px;
+        /* Altura menor */
+        padding: 10px 5px;
         margin-bottom: 0;
-        border-radius: 8px;
+        /* Remove margem inferior padrão */
+        font-size: 0.9rem;
     }
 
     .listagem .pokemon span {
-        padding-right: 5px;
+        font-size: 0.9rem;
     }
+
 }

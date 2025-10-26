@@ -4,7 +4,7 @@
 
 /* Contêiner que segura o card (define a largura e arredondamento) */
 .cartoes-pokemon {
-    width: 460px;
+    width: 400px;
     /* Novo valor, ainda menor */
     flex-shrink: 0;
     border-radius: 10px;
@@ -46,8 +46,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    min-height: 350px;
-    /* Altura mínima reduzida */
+    min-height: 280px;
+    /* Altura mínima reduzida para a seção colorida */
 }
 
 /* --- Seção Detalhes (Nome, Som, Status Lendário e ID) --- */
@@ -164,7 +164,7 @@
     margin-top: auto;
     margin-bottom: auto;
     min-height: 200px;
-    /* Altura mínima reduzida */
+    /* Novo valor para a altura mínima da imagem */
 }
 
 .cartao-pokemon .cartao-imagem img {
@@ -259,7 +259,11 @@
     text-align: left;
     margin-bottom: 0;
     font-size: 0.85rem;
-    /* Tamanho menor */
+    font-weight: normal;
+    color: #888;
+    text-align: left;
+    margin-bottom: 0;
+    font-size: 0.85rem;
 }
 
 .cartao-pokemon .lista-evolucoes li.no-evolution::after {
@@ -407,4 +411,27 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.cartao-pokemon .lista-evolucoes li .evolution-id {
+    display: block;
+    /* Força a quebra de linha */
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 2px;
+    /* Pequeno espaço acima do número */
+    font-weight: normal;
+    /* margin-left removido */
+}
+
+.cartao-pokemon .lista-evolucoes li {
+    font-size: 0.95rem;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    /* Remove a seta para a versão empilhada */
+    /* &::after { display: none; } */
+    /* Remova a regra da seta '▼' se quiser */
 }
