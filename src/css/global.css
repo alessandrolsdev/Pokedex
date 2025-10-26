@@ -1,38 +1,66 @@
+/**
+ * @file global.css
+ * @description Estilos globais da aplicação Pokédex.
+ * Inclui resets, estilos base para tags (body, ul), e o layout principal flexbox (.pokedex).
+ */
+
+/* ==========================================================================
+   Reset Básico e Estilos de Base
+   ========================================================================== */
+
+/*
+ * Reset simples para remover paddings e margins padrão dos navegadores
+ * e definir box-sizing como border-box para um controle de tamanho mais fácil.
+ */
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho total do elemento */
 }
 
+/* Remove os marcadores padrão de listas não ordenadas */
 ul {
     list-style-type: none;
 }
 
+/* Estilos base para o corpo da página */
 body {
+    /* Define a fonte principal para toda a aplicação */
     font-family: 'Poppins', sans-serif;
+    /* (Opcional) Cor de fundo geral, caso 'main' não cubra tudo */
+    /* background-color: #f0f2f5; */
+    /* (Opcional) Melhora a renderização da fonte */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* ==========================================================================
+   Layout Principal da Aplicação
+   ========================================================================== */
+
+/*
+ * Container <main> que ocupa toda a altura da viewport e centraliza o .pokedex.
+ */
 main {
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    /* <-- CORREÇÃO 1: Alinha tudo no topo da página */
-    justify-content: center;
-    background-color: #DADFE8;
+    min-height: 100vh; /* Garante que o main ocupe pelo menos toda a altura da tela */
+    display: flex; /* Habilita Flexbox para centralização */
+    align-items: flex-start; /* Alinha o .pokedex no topo (importante para cards altos) */
+    justify-content: center; /* Centraliza o .pokedex horizontalmente */
+    background-color: #DADFE8; /* Cor de fundo principal da página */
+    padding: 20px 0; /* Adiciona um respiro vertical */
 }
 
-/* No seu src/css/global.css */
-
+/*
+ * Container .pokedex que organiza as 3 colunas principais: Descrição | Card | Lista.
+ */
 .pokedex {
-    display: flex;
-    flex-direction: row;
-    gap: 25px;
-    padding: 30px 20px;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    /* Novo cálculo: 260(desc) + 400(card) + 200(lista) + 25(gap) + 25(gap) = 910px */
-    max-width: 930px;
-    /* Reduzido para acompanhar */
-    margin: 0 auto;
+    display: flex; /* Habilita Flexbox */
+    flex-direction: row; /* Layout lado-a-lado (padrão desktop) */
+    gap: 25px; /* Espaço entre as colunas */
+    padding: 30px 20px; /* Padding interno */
+    align-items: flex-start; /* Alinha as colunas pelo topo */
+    justify-content: center; /* Centraliza as colunas se houver espaço extra */
+    width: 100%; /* Ocupa a largura disponível dentro do <main> */
+    max-width: 950px; /* Largura máxima do conjunto (ajustada para Desc(260)+Card(400)+Lista(200)+Gaps(50)) */
+    margin: 0 auto; /* Garante centralização horizontal do próprio .pokedex */
 }

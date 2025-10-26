@@ -1,66 +1,104 @@
-/* --- Estilos Responsivos --- */
+/**
+ * @file responsivo.css
+ * @description Estilos responsivos para a aplicação Pokédex.
+ * Contém regras CSS que são aplicadas APENAS quando a largura da tela
+ * é menor ou igual a 750 pixels (típico de tablets em modo retrato e celulares).
+ * O objetivo é adaptar o layout de 3 colunas (desktop) para um layout
+ * de 1 coluna (mobile), melhorando a usabilidade em telas pequenas.
+ */
+
+/*
+ * Media Query: Aplica as regras abaixo SOMENTE se a largura da viewport
+ * for 750 pixels ou menos.
+ */
 @media (max-width: 750px) {
 
-    /* --- Ajustes Globais --- */
+    /* --- Ajustes Globais para Telas Menores --- */
+
+    /* Aumenta ligeiramente a fonte base para melhorar a legibilidade mobile */
     body {
         font-size: 14px;
-        /* Aumentar um pouco a base no mobile */
     }
 
-    /* --- Layout Principal (Empilhado) --- */
+    /* --- Layout Principal (Modo Empilhado) --- */
+
+    /*
+     * Altera o layout principal do .pokedex de 'row' (lado-a-lado) para 'column' (empilhado).
+     * Ajusta padding, largura máxima e espaçamento para o contexto mobile.
+     */
     .pokedex {
         flex-direction: column;
-        /* FORÇA O LAYOUT DE COLUNA */
+        /* Força Descrição, Card e Lista a ficarem um sobre o outro */
         padding: 20px;
-        /* Padding geral para telas menores */
+        /* Reduz padding geral para telas menores */
         max-width: 95%;
-        /* Limita a largura máxima no mobile */
+        /* Permite ocupar quase toda a largura da tela */
         gap: 20px;
-        /* Espaço entre os blocos */
+        /* Espaço vertical entre os blocos empilhados */
+        /* align-items: flex-start; (Herdado ou redefinido se necessário, aqui OK) */
+        /* justify-content: center; (Herdado, ajuda a centralizar horizontalmente) */
     }
 
-    /* --- Bloco da Descrição --- */
+    /* --- Bloco da Descrição (Mobile) --- */
+
+    /*
+     * Faz o bloco da Descrição ocupar a largura total disponível e o centraliza.
+     * Ajusta padding e fontes para mobile.
+     */
     .descricao {
         width: 100%;
-        /* Ocupa a largura total */
+        /* Ocupa a largura total do .pokedex */
         max-width: 400px;
-        /* Limita um pouco em telas um pouco maiores */
+        /* Limita a largura máxima para não ficar excessiva */
         align-self: center;
-        /* Centraliza o bloco */
+        /* Garante centralização horizontal do bloco */
         padding: 20px;
+        /* Padding interno */
+        /* Os estilos de fundo, borda, sombra são herdados do CSS base */
     }
 
     .descricao h3 {
         font-size: 1.3rem;
     }
 
+    /* Título um pouco menor */
     .descricao p {
         font-size: 0.9rem;
     }
 
+    /* Texto da descrição um pouco menor */
 
-    /* --- Bloco do Card Pokémon --- */
+
+    /* --- Bloco do Card Pokémon (Mobile) --- */
+
+    /*
+     * Faz o contêiner do card ocupar a largura total disponível e o centraliza.
+     */
     .cartoes-pokemon {
         width: 100%;
-        /* Ocupa a largura total */
+        /* Ocupa a largura total do .pokedex */
         max-width: 400px;
-        /* Limita um pouco */
+        /* Limita a largura máxima */
         align-self: center;
-        /* Centraliza o bloco */
+        /* Centraliza horizontalmente */
     }
 
+    /* O .cartao-pokemon interno se ajustará automaticamente à largura do pai */
     .cartao-pokemon {
-        /* A altura se ajustará ao conteúdo */
+        /* A altura se ajusta ao conteúdo, removemos min-heights fixos */
     }
 
-    /* Ajustes no Topo do Card */
+    /* Ajustes no Topo Colorido do Card (Mobile) */
     .cartao-pokemon .cartao-topo {
         padding: 15px 20px 10px;
-        /* Padding menor */
+        /* Padding reduzido */
         min-height: auto;
-        /* Remove altura mínima no mobile */
+        /* Remove altura mínima fixa do desktop */
+        gap: 8px;
+        /* Espaço menor entre elementos */
     }
 
+    /* Reduz o tamanho da fonte do nome e ID */
     .cartao-pokemon .nome {
         font-size: 1.5rem;
     }
@@ -69,17 +107,20 @@
         font-size: 1.2rem;
     }
 
+    /* Reduz o tamanho do botão de som */
     .cartao-pokemon .pokemon-som {
         width: 25px;
         height: 25px;
         font-size: 0.8rem;
     }
 
+    /* Reduz o tamanho da tag Lendário/Mítico */
     .cartao-pokemon .lendario-status {
         font-size: 9px;
         padding: 1px 4px;
     }
 
+    /* Reduz o tamanho das tags Tipo e Região */
     .cartao-pokemon .tipo {
         font-size: 11px;
         padding: 3px 8px;
@@ -90,92 +131,111 @@
         padding: 2px 6px;
     }
 
-    /* Ajustes na Imagem do Card */
+    /* Ajustes na Imagem Principal do Card (Mobile) */
     .cartao-pokemon .cartao-imagem {
         min-height: 180px;
-        /* Altura mínima menor */
+        /* Altura mínima menor para a imagem */
     }
 
+    /* Reduz o tamanho dos Sprites quando exibidos no mobile */
     .cartao-pokemon .cartao-imagem img.mostrando-sprite {
         width: 96px;
         height: 96px;
         transform: scale(1.5);
-        /* Tamanho menor para sprite */
+        /* Mantém um tamanho razoável */
     }
 
-    /* Ajustes na Base Branca do Card */
+    /* Ajustes na Base Branca do Card (Mobile) */
     .cartao-pokemon .cartao-informacoes {
         padding: 15px;
-        /* Padding menor */
+        /* Padding geral reduzido */
         justify-content: space-around;
-        /* Mantém espaçamento */
+        /* Mantém colunas espaçadas */
     }
 
+    /* Ajusta as colunas (Status, Evo, Habilidades) para talvez ficarem lado a lado */
     .cartao-pokemon .cartao-informacoes .status,
     .cartao-pokemon .cartao-informacoes .evolucoes,
     .cartao-pokemon .cartao-informacoes .habilidades {
-        width: 30%;
-        /* Usa porcentagem para caberem lado a lado */
-        min-width: 100px;
-        /* Largura mínima */
+        width: 31%;
+        /* Usa porcentagem para tentar caber 3 colunas */
+        min-width: 90px;
+        /* Largura mínima para evitar aperto excessivo */
         padding: 0 3px;
+        /* Padding lateral mínimo */
         margin-bottom: 10px;
+        /* Espaço inferior */
     }
 
+    /* Reduz o tamanho dos títulos das colunas */
     .cartao-pokemon .cartao-informacoes h3 {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         margin-bottom: 8px;
+        /* Menor */
     }
 
+    /* Reduz o tamanho da fonte dos itens das listas */
     .cartao-pokemon .lista-status li,
     .cartao-pokemon .lista-habilidades li,
     .cartao-pokemon .lista-evolucoes li {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         margin-bottom: 5px;
         padding: 3px 0;
+        /* Menor */
     }
 
+    /* Ajusta a seta da evolução */
     .cartao-pokemon .lista-evolucoes li:not(:last-child)::after {
         margin-top: 3px;
         font-size: 8px;
     }
 
 
-    /* --- Bloco da Lista de Navegação --- */
+    /* --- Bloco da Lista de Navegação/Recentes (Mobile) --- */
+
+    /* Faz a lista ocupar a largura total e a centraliza */
     .listagem {
         width: 100%;
-        /* Ocupa a largura total */
+        /* Ocupa largura total do .pokedex */
         max-width: 400px;
-        /* Limita um pouco */
+        /* Mesma largura máxima do card */
         align-self: center;
-        /* Centraliza o bloco */
+        /* Centraliza horizontalmente */
     }
 
-    /* Ajuste para a lista ficar horizontal (opcional, mas comum) */
+    /* Ajusta a UL para layout flexível com quebra de linha (Grid de botões) */
     .listagem ul {
         display: flex;
         flex-wrap: wrap;
-        /* Permite quebrar linha */
+        /* Permite que os botões quebrem para a próxima linha */
         gap: 8px;
+        /* Espaço entre os botões */
         justify-content: center;
-        /* Centraliza os botões */
+        /* Centraliza os botões horizontalmente */
     }
 
+    /* Ajusta cada botão da lista */
     .listagem .pokemon {
         width: calc(50% - 4px);
-        /* Tenta colocar 2 por linha */
+        /* Tenta fazer 2 colunas de botões (50% - metade do gap) */
         min-width: 120px;
-        /* Largura mínima */
+        /* Largura mínima para cada botão */
         min-height: 50px;
-        /* Altura menor */
+        /* Altura menor para os botões */
         padding: 10px 5px;
+        /* Padding interno */
         margin-bottom: 0;
-        /* Remove margem inferior padrão */
+        /* Remove margem inferior (o gap cuida disso) */
         font-size: 0.9rem;
+        /* Tamanho da fonte */
+        /* border-radius é herdado ou redefinido se necessário */
     }
 
+    /* Ajusta o span dentro do botão */
     .listagem .pokemon span {
         font-size: 0.9rem;
     }
 
 }
+
+/* Fim da @media query */

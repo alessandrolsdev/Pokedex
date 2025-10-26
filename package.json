@@ -5,8 +5,9 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "start": "webpack serve --open"
+    "build": "webpack --mode development",
+    "start": "webpack serve --mode development --open",
+    "build:prod": "webpack --mode production"
   },
   "keywords": [],
   "author": "",

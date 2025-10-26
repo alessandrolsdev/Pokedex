@@ -1,82 +1,168 @@
-/* --- Estilos da Listagem --- */
+/**
+ * @file listagem.css
+ * @description Estilos para a coluna de navegação/lista de recentes à direita.
+ * Inclui a barra de busca e a lista de botões dos Pokémon.
+ */
+
+/* ==========================================================================
+   Contêiner Principal da Listagem
+   ========================================================================== */
+
+/* Define a largura máxima da coluna da direita */
 .listagem {
     max-width: 200px;
-    /* Mantemos a largura original */
-}
-
-/* --- CÓDIGO ATUALIZADO (SOLUÇÃO 2) --- */
-.listagem .pokemon {
-    display: flex;
-    align-items: center;
-    /* Centraliza o texto verticalmente */
-    justify-content: center;
-    /* Centraliza o texto horizontalmente */
-    margin-bottom: 10px;
-    background-color: #6B727A;
-    color: #FFFFFF;
-    padding: 15px 10px;
-    /* Um padding bom para texto */
-    cursor: pointer;
-    border-radius: 10px;
-    min-height: 70px;
-    /* Uma altura menor e consistente */
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    transition: 0.15s ease-in-out;
-    text-align: center;
-}
-
-.listagem .pokemon:hover {
-    transform: scale(1.05);
-}
-
-.listagem .pokemon img {
-}
-
-.listagem .pokemon span {
-    padding-right: 0;
-    font-size: 16px;
-    text-transform: capitalize;
+    /* Largura fixa para esta coluna */
     width: 100%;
-    /* Garante que o span preencha o botão */
+    /* Garante que tente ocupar o espaço disponível até o max-width */
+    flex-shrink: 0;
+    /* Impede que a coluna encolha */
+    /* O alinhamento vertical é controlado pelo pai (.pokedex) no global.css */
 }
 
-/* --- FIM DA ATUALIZAÇÃO --- */
+/* ==========================================================================
+   Barra de Busca
+   ========================================================================== */
 
-
-.listagem .pokemon.ativo {
-    background-color: #FA6668;
-}
-
-/* --- Estilos para a Barra de Busca (Permanece Igual) --- */
+/* Contêiner do formulário de busca */
 .listagem .busca-form {
     display: flex;
+    /* Alinha input e botão lado a lado */
     width: 100%;
-    padding: 10px;
+    /* Ocupa toda a largura da coluna .listagem */
+    margin-bottom: 15px;
+    /* Espaço abaixo da busca, antes da lista */
     box-sizing: border-box;
+    /* Padding não aumenta a largura total */
 }
 
+/* Campo de input da busca */
 .listagem .busca-input {
     flex-grow: 1;
+    /* Faz o input ocupar o espaço horizontal restante */
     padding: 8px 10px;
+    /* Padding interno */
     border: 1px solid #ccc;
+    /* Borda sutil */
     border-radius: 5px 0 0 5px;
-    font-size: 14px;
+    /* Arredonda apenas os cantos esquerdos */
+    font-size: 0.9rem;
+    /* Tamanho da fonte */
     outline: none;
+    /* Remove a borda azul padrão ao focar */
+    /* (Opcional) Adiciona uma transição suave para foco */
+    /* transition: border-color 0.2s ease; */
 }
 
+/* (Opcional) Estilo de foco para o input */
+/* .listagem .busca-input:focus { border-color: #A040A0; } */
+
+/* Botão "Buscar" */
 .listagem .busca-botao {
     padding: 8px 12px;
+    /* Padding interno */
     border: 1px solid #A040A0;
+    /* Cor da borda (roxo) */
     background-color: #A040A0;
+    /* Cor de fundo (roxo) */
     color: white;
+    /* Cor do texto */
     border-radius: 0 5px 5px 0;
+    /* Arredonda apenas os cantos direitos */
     cursor: pointer;
-    font-size: 14px;
+    /* Muda o cursor para indicar clicabilidade */
+    font-size: 0.9rem;
+    /* Tamanho da fonte */
     font-weight: bold;
-    transition: background-color 0.2s;
+    /* Texto em negrito */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    /* Transição suave no hover */
+    flex-shrink: 0;
+    /* Impede que o botão encolha */
 }
 
+/* Efeito hover para o botão "Buscar" */
 .listagem .busca-botao:hover {
     background-color: #BA68C8;
+    /* Cor de fundo mais clara */
     border-color: #BA68C8;
+    /* Cor da borda correspondente */
 }
+
+
+/* ==========================================================================
+   Lista de Pokémon Recentes (Botões)
+   ========================================================================== */
+
+/*
+ * Estilo de cada item (botão) na lista de recentes.
+ * Layout flex vertical para centralizar o nome.
+ */
+.listagem .pokemon {
+    display: flex;
+    flex-direction: column;
+    /* Organiza conteúdo verticalmente (caso haja imagem no futuro) */
+    align-items: center;
+    /* Centraliza conteúdo horizontalmente */
+    justify-content: center;
+    /* Centraliza conteúdo verticalmente */
+    margin-bottom: 10px;
+    /* Espaço entre os botões */
+    background-color: #6B727A;
+    /* Cor de fundo cinza escuro */
+    color: #FFFFFF;
+    /* Cor do texto (branco) */
+    padding: 15px 10px;
+    /* Padding interno */
+    cursor: pointer;
+    /* Indica clicabilidade */
+    border-radius: 10px;
+    /* Bordas arredondadas */
+    min-height: 50px;
+    /* Altura mínima ajustada */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 10px 0px;
+    /* Sombra mais sutil */
+    transition: transform 0.15s ease-in-out, background-color 0.2s ease;
+    /* Transições */
+    text-align: center;
+    /* Garante centralização do texto */
+}
+
+/* Efeito hover para os botões da lista */
+.listagem .pokemon:hover {
+    transform: scale(1.05);
+    /* Efeito de crescimento sutil */
+    background-color: #8A9199;
+    /* Cor de fundo levemente mais clara */
+}
+
+/*
+ * Estilo para o span que contém o nome do Pokémon dentro do botão.
+ */
+.listagem .pokemon span {
+    padding-right: 0;
+    /* Remove padding desnecessário */
+    font-size: 1rem;
+    /* Tamanho da fonte ajustado */
+    text-transform: capitalize;
+    /* Primeira letra maiúscula */
+    width: 100%;
+    /* Garante que o span ocupe a largura para centralização */
+    font-weight: 500;
+    /* Peso da fonte */
+}
+
+/*
+ * Estilo para o botão que representa o Pokémon ATUALMENTE selecionado/exibido.
+ * (Classe adicionada/removida via JavaScript - ui.js).
+ */
+.listagem .pokemon.ativo {
+    background-color: #FA6668;
+    /* Cor de destaque (vermelho/rosa) */
+    transform: scale(1.03);
+    /* Leve crescimento para indicar seleção */
+    box-shadow: rgba(250, 102, 104, 0.4) 0px 6px 15px 0px;
+    /* Sombra correspondente */
+}
+
+/* Regra de imagem (atualmente não usada, pois removemos as imagens da lista) */
+/* .listagem .pokemon img { ... } */

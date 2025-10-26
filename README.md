@@ -1,44 +1,85 @@
-# Pokédex Web App 🌟
+# Pokédex Dinâmico com Webpack  Pokédex Dinâmico com Webpack
 
-Uma Pokédex interativa construída com HTML, CSS e JavaScript. 🚀
+![Pokédex Screenshot](site.png) Uma aplicação web moderna e responsiva que permite aos usuários explorar informações detalhadas sobre Pokémon, utilizando a [PokéAPI v2](https://pokeapi.co/) como fonte de dados. Este projeto foi construído com HTML, CSS e JavaScript puros (ES6+), mas utiliza um robusto processo de build gerenciado pelo Webpack 5 para otimização, modularização e um fluxo de desenvolvimento eficiente.
 
-## Tabela de Conteúdo 📚
+## ✨ Funcionalidades Principais
 
-- [Sobre](#sobre)
-- [Pré-requisitos](#pré-requisitos)
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+* **Busca de Pokémon:** Pesquise por nome ou número da Pokédex.
+* **Visualização Detalhada:** Exibe informações completas:
+    * Stats (HP, Ataque, Defesa, Velocidade)
+    * Habilidades
+    * Tipo(s) com cores correspondentes no card
+    * Imagem oficial (Artwork) com fallback para Sprite pixelado
+    * Número da Pokédex
+    * Grito / Som do Pokémon (clicável) 🔊
+    * Cadeia de Evolução (com nomes e números)
+    * Descrição da Pokédex (em Português ou Inglês)
+    * Região / Geração de origem (ex: Kanto)
+    * Status especial (Lendário / Mítico)
+* **Lista de Recentes:** Mantém um histórico dos últimos 6 Pokémon visualizados (usando `localStorage`).
+* **Interface Responsiva:** Layout adaptável para desktops e dispositivos móveis.
+* **Feedback Visual:**
+    * Animações suaves (fade-in/out) na troca de Pokémon.
+    * Estado de carregamento visual (spinner).
+    * Card de erro customizado para buscas "Não Encontradas".
 
-## Sobre ℹ️
+## 🛠️ Tecnologias Utilizadas
 
-Este projeto é uma aplicação web de uma Pokédex que permite aos usuários visualizar informações sobre vários Pokémon,
-como nomes, tipos, estatísticas e habilidades. A aplicação é construída utilizando HTML para estrutura, CSS para estilos
-e JavaScript para funcionalidades interativas.
+* **Frontend:**
+    * HTML5 (Semântico)
+    * CSS3 (Flexbox, Media Queries, Transições)
+    * JavaScript (ES6+ Padrão, Módulos `import`/`export`, `async`/`await`, `fetch`)
+* **API:**
+    * [PokéAPI v2](https://pokeapi.co/)
+* **Build Tool & Desenvolvimento:**
+    * **Webpack 5:** Para empacotamento (bundling), otimização e gerenciamento de módulos.
+        * `webpack-cli`: Interface de linha de comando.
+        * `webpack-dev-server`: Servidor de desenvolvimento com Hot Module Replacement (HMR).
+    * **Loaders & Plugins Webpack:**
+        * `html-webpack-plugin`: Gera o `index.html` final com scripts/links injetados.
+        * `mini-css-extract-plugin` & `css-loader`: Processam e extraem o CSS para um arquivo separado.
+        * `copy-webpack-plugin`: Copia assets estáticos (imagens) para o build final.
+    * **Node.js & npm:** Gerenciador de pacotes e ambiente de execução para as ferramentas de build.
+* **Persistência:**
+    * `localStorage`: Para armazenar a lista de Pokémon recentes.
 
-## Pré-requisitos 🛠️
+## 🚀 Como Executar Localmente
 
-Antes de começar, você precisa ter instalado:
+Você precisará ter o [Node.js](https://nodejs.org/) (que inclui o npm) instalado em sua máquina.
 
-- Um navegador web moderno (como Google Chrome, Mozilla Firefox, etc.).
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/alessandrolsdev/Pokedex.git](https://github.com/alessandrolsdev/Pokedex.git)
+    cd seu-repositorio-pokedex
+    ```
 
-## Instalação 🚀
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
 
-1. Faça um clone deste repositório: `git clone https://github.com/seu-usuario/pokedex-app.git`
-2. Navegue até o diretório do projeto: `cd pokedex-app`
-3. Abra o arquivo `index.html` no seu navegador.
+3.  **Inicie o servidor de desenvolvimento:**
+    ```bash
+    npm run start
+    ```
+    Isso abrirá automaticamente o Pokédex no seu navegador padrão (geralmente em `http://localhost:8080`). O servidor recarregará automaticamente quando você fizer alterações nos arquivos `src/`.
 
-## Uso 🕹️
+4.  **Para gerar o build de produção:**
+    ```bash
+    npm run build:prod
+    ```
+    Isso criará uma pasta `dist/` otimizada, pronta para ser hospedada em qualquer servidor web estático.
 
-- Ao abrir o aplicativo no navegador, você verá uma lista de Pokémon na lateral direita.
-- Clique em um Pokémon na lista para ver mais detalhes exibidos no cartão à esquerda.
-- Para interagir com a aplicação, clique nos diferentes Pokémon da lista.
+## 🌐 Deploy (Link Online)
 
-## Contribuição 🤝
+*Você pode acessar a versão online deste projeto aqui:*
+[**LINK_PARA_SEU_SITE_NETLIFY_OU_VERCEL**] ## 🔮 Próximos Passos (Possíveis Melhorias)
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
+* [ ] Tornar os nomes na lista de evolução clicáveis.
+* [ ] Adicionar paginação ou scroll infinito para a lista principal (se fosse implementada).
+* [ ] Implementar testes unitários ou de integração.
+* [ ] Melhorar acessibilidade (atributos ARIA).
 
-## Licença 📜
+---
 
-Este projeto está licenciado sob a [Licença MIT](LICENSE).
+Feito com ❤️ por um fã de pokémon
