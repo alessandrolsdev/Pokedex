@@ -1,9 +1,9 @@
 /**
  * Módulo da API
- * Responsabilidade: Apenas buscar dados na PokéAPI.
+ * Responsabilidade: Buscar dados na PokéAPI.
  */
 
-// Exportamos a função para que outros arquivos (como o main.js) possam usá-la.
+// Função principal para buscar dados básicos do Pokémon
 export async function fetchPokemon(pokemonName) {
     const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`;
 
@@ -11,58 +11,77 @@ export async function fetchPokemon(pokemonName) {
         const response = await fetch(url);
         
         if (!response.ok) {
-            // Em vez de 'alert' ou 'textContent', apenas 'lançamos um erro'
-            // Quem chamou a função (o main.js) que decide o que fazer.
             throw new Error('Pokémon não encontrado');
         }
         
         const data = await response.json();
-        return data; // Retorna os dados do Pokémon em caso de sucesso
+        return data; // Retorna os dados do Pokémon
         
     } catch (error) {
-        // Propaga o erro para quem chamou a função
-        throw error;
+        throw error; // Propaga o erro
     }
 }
-// Função auxiliar para "achatar" os dados da evolução
-function parseEvolutionChain(chain) {
+
+
+// Função auxiliar (interna) para analisar a cadeia de evolução aninhada
+function parseEvolutionChain(chain) { // <-- Chave de abertura
     const evolutions = [];
     let current = chain;
 
     // Loop que "anda" pela cadeia aninhada
     do {
         evolutions.push(current.species.name);
-        current = current.evolves_to[0]; // Pega a *primeira* evolução
-    } while (!!current && current.hasOwnProperty('evolves_to'));
+        // Pega a *primeira* evolução (a API pode ter ramificações)
+        current = current.evolves_to[0]; 
+    } while (!!current && current.hasOwnProperty('evolves_to')); // <-- Fim do loop
 
-    return evolutions; // Retorna ex: ['bulbasaur', 'ivysaur', 'venusaur']
-}
+    return evolutions; // <-- Return DENTRO da função
+} // <-- Chave de fechamento
 
 
-export async function fetchEvolutionChain(pokemonId) {
+// Função para buscar dados da Espécie (descrição, etc.) E a Cadeia de Evolução
+export async function fetchSpeciesAndEvolution(pokemonId) {
     try {
-        // 1. Busca a ESPÉCIE para encontrar a URL da cadeia
+        // 1. Busca a ESPÉCIE
         const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`;
         const speciesResponse = await fetch(speciesUrl);
         if (!speciesResponse.ok) {
-            throw new Error('Espécie do Pokémon não encontrada.');
+            // Se a espécie falhar, não adianta buscar evolução
+            console.warn(`Espécie do Pokémon ${pokemonId} não encontrada. Evolução não será buscada.`);
+            return { speciesData: null, evolutionArray: [] }; 
         }
-        const speciesData = await speciesResponse.json();
+        const speciesData = await speciesResponse.json(); // GUARDAMOS OS DADOS DA ESPÉCIE
         
+        // Verifica se existe URL de evolução
+        if (!speciesData.evolution_chain?.url) {
+            console.warn(`Pokémon ${pokemonId} não possui URL de cadeia de evolução.`);
+            return { speciesData: speciesData, evolutionArray: [speciesData.name] }; // Retorna só o nome atual
+        }
         const evolutionChainUrl = speciesData.evolution_chain.url;
 
-        // 2. Busca a CADEIA DE EVOLUÇÃO
+        // 2. Busca a CADEIA DE EVOLUÇÃO (só se a URL existir)
         const evolutionResponse = await fetch(evolutionChainUrl);
         if (!evolutionResponse.ok) {
-            throw new Error('Cadeia de evolução não encontrada.');
+            console.warn(`Cadeia de evolução para ${pokemonId} não encontrada na URL: ${evolutionChainUrl}`);
+            return { speciesData: speciesData, evolutionArray: [speciesData.name] }; // Retorna só o nome atual
         }
         const evolutionData = await evolutionResponse.json();
 
-        // 3. "Achata" os dados e retorna a lista de nomes
-        return parseEvolutionChain(evolutionData.chain);
+        // 3. "Achata" os dados da evolução usando a função auxiliar
+        const evolutionArray = parseEvolutionChain(evolutionData.chain);
+
+        // 4. RETORNA AMBOS: DADOS DA ESPÉCIE + LISTA DE EVOLUÇÃO
+        return {
+            speciesData: speciesData,
+            evolutionArray: evolutionArray
+        };
 
     } catch (error) {
-        console.error("Erro ao buscar cadeia de evolução:", error);
-        return []; // Retorna uma lista vazia em caso de erro
+        // Loga o erro, mas tenta retornar algo útil
+        console.error("Erro ao buscar dados da espécie/evolução:", error);
+        return { 
+            speciesData: null, // Indica que os dados da espécie falharam
+            evolutionArray: [] // Retorna lista de evolução vazia
+        }; 
     }
 }

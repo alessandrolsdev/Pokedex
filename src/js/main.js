@@ -1,14 +1,18 @@
 /**
  * Módulo Principal (Orquestrador)
  */
-import '../css/style.css';
+import '../css/global.css';
+import '../css/card.css';
+import '../css/listagem.css';
+import '../css/responsivo.css';
+
+
 
 // 1. Importações do recents.js
 import { getRecents, addRecent } from './recents.js';
 
 // 2. Importações do api.js (corrigido, sem duplicatas)
-import { fetchPokemon, fetchEvolutionChain } from './api.js';
-
+import { fetchPokemon, fetchSpeciesAndEvolution } from './api.js';
 // 3. Importações do ui.js (corrigido, adicionando renderEvolutionChain)
 import { 
     renderPokemonCard, 
@@ -19,38 +23,46 @@ import {
     listaPokemonNavEl,
     buscaFormEl, 
     buscaInputEl,
-    renderEvolutionChain // <-- ADICIONADO AQUI
+    renderEvolutionChain,
+    renderSpeciesData,
 } from './ui.js';
 
 
 // --- Função "Controladora" Principal ---
 async function buscarEExibirPokemon(nomePokemon) {
-    
-    // 1. CHAMA O FADE-OUT E ESPERA ELE TERMINAR (300ms)
     await renderLoading(true); 
     
-    // 2. SÓ DEPOIS de 300ms, ele começa a buscar os dados
     try {
         const data = await fetchPokemon(nomePokemon);
-        const evolutionArray = await fetchEvolutionChain(data.id);
+        const { speciesData, evolutionArray } = await fetchSpeciesAndEvolution(data.id);
         
         addRecent(data.name);
-        renderPokemonList(getRecents());
+        renderPokemonList(getRecents()); // Redesenha a lista
 
-        // 3. Espera o card (e a imagem) carregar
         await renderPokemonCard(data); 
-        renderEvolutionChain(evolutionArray); // <-- Agora funciona
+        renderEvolutionChain(evolutionArray);
+        renderSpeciesData(speciesData);
         
-        const itemAtivo = document.getElementById(data.name);
-        atualizaSelecaoLista(itemAtivo);
+        // --- CORREÇÃO AQUI ---
+        // 1. Tenta encontrar o item na lista DEPOIS que ela foi redesenhada
+        const itemAtivo = document.getElementById(data.name); 
+        
+        // 2. SÓ atualiza a seleção SE o item foi encontrado
+        if (itemAtivo) { 
+            atualizaSelecaoLista(itemAtivo);
+        } else {
+            // Se não encontrou (veio da busca), remove a seleção de qualquer item antigo
+            atualizaSelecaoLista(null); 
+        }
+        // --- FIM DA CORREÇÃO ---
         
     } catch (error) {
         console.error("Erro:", error.message);
         renderError(error.message); 
-        renderEvolutionChain([]); // <-- E aqui também
-        atualizaSelecaoLista(null);
+        renderEvolutionChain([]); 
+        renderSpeciesData(null); 
+        atualizaSelecaoLista(null); // Garante que a seleção é limpa no erro
     } finally {
-        // 4. CHAMA O FADE-IN (quando tudo estiver pronto)
         renderLoading(false);
     }
 }

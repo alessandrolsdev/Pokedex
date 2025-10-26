@@ -1,53 +1,136 @@
-/* --- Estilos do Card --- */
-/* (Pode adicionar no topo do arquivo card.css,
-   modificando a regra .cartao-pokemon existente)
-*/
+/* ==========================================================================
+   Estilos Globais do Card e Contêineres Principais
+   ========================================================================== */
 
+/* Contêiner que segura o card (define a largura e arredondamento) */
+.cartoes-pokemon {
+    width: 460px;
+    /* Novo valor, ainda menor */
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* O card principal (layout flex vertical, sombra, transições) */
 .cartao-pokemon {
-    /* display: none; (Isso é sobrescrito pelo .aberto, está OK) */
-
-    /* --- NOVAS REGRAS DE LAYOUT --- */
     display: flex;
-    /* Torna o card um container flex */
     flex-direction: column;
-    /* Empilha os filhos (topo e informações) */
-    min-height: 800px;
-    /* Dá uma altura mínima total ao card (ajuste se necessário) */
-    /* --------------------------- */
-
+    /* min-height removido para permitir encolher */
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 10px;
-
-    /* Suas transições (isso está correto) */
+    overflow: hidden;
+    /* Garante que o conteúdo respeite as bordas */
     transition: background-color 0.4s ease,
         opacity 0.3s ease-in-out;
 }
 
-/* --- NOVO: ESTADO DE CARREGAMENTO --- */
-/*
-  Quando o card estiver carregando, vamos usar JS
-  para adicionar esta classe, que o torna invisível.
-*/
+/* Estado de carregamento (fade-out) */
 .cartao-pokemon.carregando {
     opacity: 0;
     pointer-events: none;
 }
 
-.cartao-pokemon .cartao-topo {
-    padding: 30px 40px 0;
+/* Estado "aberto" (visível) - sobrescreve display:none inicial */
+.cartao-pokemon.aberto {
+    display: flex;
+}
 
-    /* --- NOVAS REGRAS DE LAYOUT --- */
-    flex-grow: 1;
-    /* DIZ AO TOPO PARA "CRESCER" E OCUPAR O ESPAÇO */
+
+/* ==========================================================================
+   Seção Superior do Card (Área Colorida - .cartao-topo)
+   ========================================================================== */
+
+/* Layout principal da área superior */
+.cartao-pokemon .cartao-topo {
+    padding: 20px 30px 15px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    /* Centraliza o conteúdo (nome, tipo, imagem) */
-    /* --------------------------- */
+    gap: 10px;
+    min-height: 350px;
+    /* Altura mínima reduzida */
+}
+
+/* --- Seção Detalhes (Nome, Som, Status Lendário e ID) --- */
+
+.cartao-pokemon .detalhes {
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    min-height: 35px;
+}
+
+.cartao-pokemon .nome-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .cartao-pokemon .nome {
-    margin-bottom: 5px;
+    margin-bottom: 0;
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.cartao-pokemon .pokemon-som {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.cartao-pokemon .pokemon-som:hover {
+    opacity: 1.0;
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 1.0);
+}
+
+.cartao-pokemon .pokemon-som.escondido {
+    display: none;
+}
+
+.cartao-pokemon .lendario-status {
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: white;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.cartao-pokemon .lendario-status.lendario {
+    background-color: #FFD700;
+    color: #6b4f00;
+}
+
+.cartao-pokemon .lendario-status.mitico {
+    background-color: #D3A1FF;
+    color: #4b0082;
+}
+
+.cartao-pokemon #pokemon-id {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* --- Seção Tipo e Região --- */
+
+.cartao-pokemon .tipo-regiao-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
 }
 
 .cartao-pokemon .tipo {
@@ -55,71 +138,148 @@
     background-color: #FFFFFF;
     opacity: 0.7;
     border-radius: 10px;
-    padding: 2px 10px;
+    padding: 4px 12px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    width: fit-content;
+    align-self: flex-start;
+    text-transform: capitalize;
 }
 
-.cartao-pokemon .detalhes {
-    color: #FFFFFF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.cartao-pokemon .regiao-info {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin: 0;
 }
+
+/* --- Seção da Imagem Principal --- */
 
 .cartao-pokemon .cartao-imagem {
-    width: 350px;
-    height: 350px;
-
-    /* --- NOVAS REGRAS DE CENTRALIZAÇÃO --- */
+    flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    min-height: 200px;
+    /* Altura mínima reduzida */
 }
 
 .cartao-pokemon .cartao-imagem img {
-    /* Artwork (imagens grandes) vão preencher o container */
     max-height: 100%;
     max-width: 100%;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3));
 }
+
+.cartao-pokemon .cartao-imagem img.mostrando-sprite {
+    max-height: none;
+    max-width: none;
+    width: 120px;
+    height: 120px;
+    image-rendering: pixelated;
+    transform: scale(1.8);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+
+/* ==========================================================================
+   Seção Inferior do Card (Branca - .cartao-informacoes)
+   ========================================================================== */
 
 .cartao-pokemon .cartao-informacoes {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    /* Garante espaçamento */
     background-color: #FFFFFF;
-    padding: 80px 30px 50px;
-    margin-top: -70px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-}
-
-.cartao-pokemon .cartao-informacoes h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #6B727A;
+    padding: 20px 15px 15px;
 }
 
 .cartao-pokemon .cartao-informacoes .status,
+.cartao-pokemon .cartao-informacoes .evolucoes,
 .cartao-pokemon .cartao-informacoes .habilidades {
-    padding: 0 10px;
-    width: 180px;
+    padding: 0 5px;
+    width: 110px;
+    margin-bottom: 15px;
 }
 
-.cartao-pokemon .lista-habilidades li,
-.cartao-pokemon .lista-status li {
-    border-bottom: 1px solid #C3C4C5;
-    padding: 0 0 5px;
-    margin-bottom: 5px;
-    font-size: 15px;
+.cartao-pokemon .cartao-informacoes h3 {
+    font-size: 1rem;
+    /* Tamanho reduzido */
+    font-weight: 800;
+    margin-bottom: 10px;
+    /* Espaço reduzido */
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+    text-align: center;
+}
+
+.cartao-pokemon .lista-status li,
+.cartao-pokemon .lista-habilidades li {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 4px 0;
+    /* Padding vertical reduzido */
+    margin-bottom: 6px;
+    /* Espaço reduzido */
+    font-size: 0.85rem;
+    /* Tamanho reduzido */
     list-style-type: none;
+    text-transform: capitalize;
 }
 
+.cartao-pokemon .lista-status li span {
+    font-weight: 500;
+}
 
-.cartao-pokemon.aberto {
+.cartao-pokemon .lista-evolucoes li {
+    font-size: 0.9rem;
+    /* Tamanho reduzido */
+    text-transform: capitalize;
+    margin-bottom: 8px;
+    /* Espaço reduzido */
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.cartao-pokemon .lista-evolucoes li:not(:last-child)::after {
+    content: '▼';
     display: block;
+    margin-top: 4px;
+    color: #aaa;
+    font-size: 9px;
+    /* Seta menor */
 }
 
-/* --- Cores dos Tipos (API) --- */
-/* --- PACOTE COMPLETO DE CORES (18 TIPOS) --- */
+.cartao-pokemon .lista-evolucoes li.no-evolution {
+    font-weight: normal;
+    color: #888;
+    text-align: left;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    /* Tamanho menor */
+}
+
+.cartao-pokemon .lista-evolucoes li.no-evolution::after {
+    display: none;
+}
+
+
+/* ==========================================================================
+   Seção de Descrição (Agora fora do card, controlada por global.css)
+   ========================================================================== */
+
+/* Os estilos .descricao, .descricao h3, .descricao p agora
+   devem estar no global.css ou em um arquivo dedicado,
+   pois a descrição não é mais filha do .cartao-pokemon
+*/
+
+
+/* ==========================================================================
+   Cores de Fundo por Tipo
+   ========================================================================== */
 .tipo-normal {
     background-color: #A8A77A;
 }
@@ -192,10 +352,24 @@
     background-color: #D685AD;
 }
 
-/* --- Estilos de Carregamento (Loading State) --- */
+/* Cor para o card de erro */
+.tipo-unknown {
+    background-color: #8a8a8a;
+}
+
+.cartao-pokemon.tipo-unknown .cartao-imagem img {
+    display: none;
+}
+
+
+/* ==========================================================================
+   Spinner de Carregamento
+   ========================================================================== */
 .cartoes-pokemon {
     position: relative;
 }
+
+/* Pai para o overlay */
 
 .loading-overlay {
     display: none;
@@ -233,75 +407,4 @@
     100% {
         transform: rotate(360deg);
     }
-}
-
-/* --- Estilo do Card de Erro / Não Encontrado --- */
-
-.cartao-pokemon.tipo-unknown {
-    background-color: #8a8a8a;
-    /* Um cinza neutro e escuro */
-}
-
-/* Quando o card for 'unknown', nós não queremos mostrar 
-  um ícone de imagem quebrada.
-*/
-.cartao-pokemon.tipo-unknown .cartao-imagem img {
-    display: none;
-}
-
-/* --- Estilos para SPRITES (Quando a arte oficial falha) --- */
-
-.cartao-pokemon .cartao-imagem img.mostrando-sprite {
-    /* Sobrescreve as regras de max-height/width */
-    max-height: none;
-    max-width: none;
-
-    /* Define um tamanho fixo e bom para o sprite */
-    width: 120px;
-    height: 120px;
-
-    /* (BÔNUS) Faz a pixel art escalar sem borrar */
-    image-rendering: pixelated;
-
-    /* Um zoom legal para dar presença */
-    transform: scale(1.8);
-
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-}
-
-/* --- Estilos da Lista de Evolução --- */
-
-.cartao-pokemon .cartao-informacoes .evolucoes {
-    padding: 0 10px;
-    width: 180px;
-    /* Mesma largura dos outros */
-}
-
-.cartao-pokemon .cartao-informacoes .evolucoes h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #6B727A;
-}
-
-.cartao-pokemon .lista-evolucoes li {
-    font-size: 15px;
-    text-transform: capitalize;
-    margin-bottom: 10px;
-    text-align: center;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Adiciona uma "seta" entre os itens */
-.cartao-pokemon .lista-evolucoes li:not(:last-child)::after {
-    content: '▼';
-    display: block;
-    margin-top: 5px;
-    color: #6B727A;
-    font-size: 12px;
-}
-
-.cartao-pokemon .lista-evolucoes li.no-evolution::after {
-    display: none;
-    /* Esconde a seta '▼' */
 }

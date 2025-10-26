@@ -4,35 +4,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pokédex - HTML CSS JAVA</title>
+  <title>Pokédex - Webpack Build</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;800&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
+
   <main>
     <div class="pokedex">
+
+      <div class="descricao">
+        <h3>Descrição</h3>
+        <p id="pokemon-descricao">...</p>
+      </div>
+
       <div class="cartoes-pokemon">
         <div class="cartao-pokemon" id="pokemon-card-display">
           <div class="loading-overlay" id="loading-overlay">
             <div class="loading-spinner"></div>
           </div>
+
           <div class="cartao-topo">
             <div class="detalhes">
-              <h2 class="nome" id="pokemon-nome">...</h2>
+              <div class="nome-container">
+                <h2 class="nome" id="pokemon-nome">...</h2> <span class="pokemon-som" id="pokemon-som-btn">🔊</span>
+                <p id="pokemon-lendario-status" class="lendario-status"></p>
+              </div>
               <span id="pokemon-id">#...</span>
             </div>
 
-            <span class="tipo" id="pokemon-tipo">...</span>
+            <div class="tipo-regiao-container">
+              <span class="tipo" id="pokemon-tipo">...</span>
+              <p class="regiao-info">
+                <strong>Região:</strong>
+                <span id="pokemon-geracao">...</span>
+              </p>
+            </div>
 
             <div class="cartao-imagem">
               <img src="" alt="imagem do pokemon" id="pokemon-imagem" />
             </div>
           </div>
-
           <div class="cartao-informacoes">
-
             <div class="status">
               <h3>Status</h3>
               <ul class="lista-status">
@@ -45,8 +62,7 @@
 
             <div class="evolucoes">
               <h3>Evoluções</h3>
-              <ul class="lista-evolucoes" id="lista-evolucoes">
-              </ul>
+              <ul class="lista-evolucoes" id="lista-evolucoes"> </ul>
             </div>
 
             <div class="habilidades">
@@ -58,22 +74,20 @@
             </div>
 
           </div>
-
-          <nav class="listagem">
-
-            <form class="busca-form" id="busca-form">
-              <input type="search" id="busca-input" class="busca-input" placeholder="Nome ou Nº" required />
-              <button type="submit" class="busca-botao">Buscar</button>
-            </form>
-
-            <ul id="lista-pokemon-nav">
-            </ul>
-
-          </nav>
         </div>
+      </div>
+      <nav class="listagem">
+        <form class="busca-form" id="busca-form"> <input type="search" id="busca-input" class="busca-input"
+            placeholder="Nome ou Nº" required />
+          <button type="submit" class="busca-botao">Buscar</button>
+        </form>
+
+        <ul id="lista-pokemon-nav"> </ul>
+      </nav>
+
+    </div>
   </main>
 
-  <script type="module" src="main.js"></script>
 </body>
 
 </html>
