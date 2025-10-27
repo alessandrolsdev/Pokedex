@@ -84,4 +84,4 @@ Você precisará ter o [Node.js](https://nodejs.org/) (que inclui o npm) instala
 
 ---
 
-Feito com ❤️ por um fã de pokémon
+Feito com ❤️ por  alessandrolsdev, um fã de pokémon.
