@@ -73,7 +73,9 @@ Você precisará ter o [Node.js](https://nodejs.org/) (que inclui o npm) instala
 ## 🌐 Deploy (Link Online)
 
 *Você pode acessar a versão online deste projeto aqui:*
-[**https://pokedex-lsdev.netlify.app**] ## 🔮 Próximos Passos (Possíveis Melhorias)
+[**https://pokedex-lsdev.netlify.app**] 
+
+## 🔮 Próximos Passos (Possíveis Melhorias)
 
 * [ ] Tornar os nomes na lista de evolução clicáveis.
 * [ ] Adicionar paginação ou scroll infinito para a lista principal (se fosse implementada).
