@@ -1,6 +1,6 @@
 # Pokédex Dinâmico com Webpack  Pokédex Dinâmico com Webpack
 
-![Pokédex Screenshot](site.png) Uma aplicação web moderna e responsiva que permite aos usuários explorar informações detalhadas sobre Pokémon, utilizando a [PokéAPI v2](https://pokeapi.co/) como fonte de dados. Este projeto foi construído com HTML, CSS e JavaScript puros (ES6+), mas utiliza um robusto processo de build gerenciado pelo Webpack 5 para otimização, modularização e um fluxo de desenvolvimento eficiente.
+(![Pokédex Screenshot](site.png)) Uma aplicação web moderna e responsiva que permite aos usuários explorar informações detalhadas sobre Pokémon, utilizando a [PokéAPI v2](https://pokeapi.co/) como fonte de dados. Este projeto foi construído com HTML, CSS e JavaScript puros (ES6+), mas utiliza um robusto processo de build gerenciado pelo Webpack 5 para otimização, modularização e um fluxo de desenvolvimento eficiente.
 
 ## ✨ Funcionalidades Principais
 
